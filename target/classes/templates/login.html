@@ -1,0 +1,41 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+	    <link rel="icon" th:href="@{/favicon.ico}" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	    <meta name="theme-color" content="#000000" />
+	    <meta
+	      name="description"
+	      content="Web site created using Spring Boot"
+	    />
+		<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+		<title>Bug Monitoring System</title>
+		<link rel="stylesheet" th:href="@{/main.css}">
+		<link rel="manifest" href="@{/manifest.json}" />
+	</head>
+	<body>
+		<div class="App">
+		<div class="LoginBox">
+			<div class="Logo-main Logo">
+	            <img th:src="@{/zz.png}" alt="Bug System Logo"></img>
+	        </div>
+	        <h1>Login to dashboard</h1>
+			<form class="FormLogin" th:object="${userCommand}" method="post">
+				<div class="Input">
+					<label class="Label">Username</label>
+	                <input class="InputElement" type="text" autocomplete="off" th:field="*{username}"/>
+				</div>
+                <div class="Input">
+					<label class="Label">Password</label>
+	                <input class="InputElement" type="text" autocomplete="off" th:field="*{password}"/>
+				</div>
+				<!-- <span class="ValidationError">You have an error in your input element</span> -->
+                <button class="Button Primary" type="submit">LOGIN</button>
+            </form>
+		</div>
+		
+		</div>
+	</body>
+</html>
