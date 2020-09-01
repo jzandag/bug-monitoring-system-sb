@@ -29,12 +29,9 @@ public class Bug {
 	private String description;
 	private Date createdDate;
 	
-	
 	private List<BugHistory> bugHistory;
 	private Project project;
 	
-	
-	private Users user;
 	private Users assignedTo;
 	private Users reportedBy;
 	
@@ -98,16 +95,6 @@ public class Bug {
 
 	public void setProject(Project project) {
 		this.project = project;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY,targetEntity = Users.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_fk")
-	public Users getUser() {
-		return user;
-	}
-
-	public void setUser(Users user) {
-		this.user = user;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY,targetEntity = Users.class, cascade = CascadeType.ALL)

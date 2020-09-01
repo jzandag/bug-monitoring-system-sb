@@ -43,11 +43,21 @@
 					</div>
 					<div class="Select">
 						<label class="Label">Assign to</label>
-						<select class="form-control" th:field="*{project}" multiple="multiple" >
-						        <option th:each="obj : ${partsAttribute}"
+						<select class="form-control" th:field="*{assignTo}" multiple="multiple" >
+						        <option th:each="obj : ${userAttribute}"
 						                th:field="*{project}" 
 						                th:value="${obj.id}" 
-						                th:text="${obj.projectName">Project                   
+						                th:text="${obj.username">Assign to
+						        </option>
+						</select>
+					</div>
+					<div class="Select">
+						<label class="Label">Reported by</label>
+						<select class="form-control" th:field="*{reportedBy}" multiple="multiple" >
+						        <option th:each="obj : ${userAttribute}"
+						                th:field="*{project}" 
+						                th:value="${obj.id}" 
+						                th:text="${obj.username">Reported by
 						        </option>
 						</select>
 					</div>

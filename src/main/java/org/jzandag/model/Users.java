@@ -22,8 +22,10 @@ public class Users {
 	private String password;
 	private String role;
 	
-	@OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
-	private List<Bug> bugs;
+	@OneToMany(mappedBy = "assignedTo", fetch = FetchType.EAGER)
+	private List<Bug> assignedBugs;
+	@OneToMany(mappedBy = "reportedBy", fetch = FetchType.EAGER)
+	private List<Bug> reportedBugs;
 	
 	public Long getId() {
 		return id;
@@ -55,10 +57,16 @@ public class Users {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public List<Bug> getBugs() {
-		return bugs;
+	public List<Bug> getAssignedBugs() {
+		return assignedBugs;
 	}
-	public void setBugs(List<Bug> bugs) {
-		this.bugs = bugs;
+	public void setAssignedBugs(List<Bug> assignedBugs) {
+		this.assignedBugs = assignedBugs;
+	}
+	public List<Bug> getReportedBugs() {
+		return reportedBugs;
+	}
+	public void setReportedBugs(List<Bug> reportedBugs) {
+		this.reportedBugs = reportedBugs;
 	}
 }

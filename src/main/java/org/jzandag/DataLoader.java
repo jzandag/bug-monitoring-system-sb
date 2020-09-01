@@ -1,7 +1,6 @@
 package org.jzandag;
 
 import org.jzandag.dao.BugRepository;
-import org.jzandag.dao.UserRepository;
 import org.jzandag.model.Bug;
 import org.jzandag.model.Project;
 import org.jzandag.model.Users;
@@ -15,13 +14,11 @@ public class DataLoader implements CommandLineRunner{
 
 	private final BugRepository bugRepo;
 	
-	private final UserRepository userRepo;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public DataLoader(BugRepository repository, UserRepository userRepo) {
-		this.userRepo = userRepo;
+	public DataLoader(BugRepository repository) {
 		this.bugRepo = repository;
 	}
 	
@@ -33,14 +30,20 @@ public class DataLoader implements CommandLineRunner{
 		
 		Users user = new Users();
 			user.setName("zid");
-			
 			user.setPassword(passwordEncoder.encode("zid"));
 			user.setUsername("zid");
 			user.setRole("ROLE_USER");
+			
+		Users user2 = new Users();
+			user2.setName("dess");
+			user2.setPassword(passwordEncoder.encode("dess"));
+			user2.setUsername("zid");
+			user2.setRole("ROLE_ADMIN");
 		
 		bug.setDescription("first Issue");
 		bug.setProject(proj);
-		bug.setUser(user);
+		bug.setAssignedTo(user);
+		bug.setReportedBy(user2);
 		
 		this.bugRepo.save(bug);
 	}
