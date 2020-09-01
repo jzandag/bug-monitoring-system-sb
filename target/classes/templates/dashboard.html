@@ -6,18 +6,72 @@
 	    <link rel="icon" th:href="@{/favicon.ico}" />
 	    <meta name="viewport" content="width=device-width, initial-scale=1" />
 	    <meta name="theme-color" content="#000000" />
-	    <meta
-	      name="description"
-	      content="Web site created using spring boot"
-	    />
+	    <meta name="description" content="Web site created using spring boot" />
 		<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
-		<title>Insert title here</title>
+		<title>Bug Monitoring System</title>
 		<link rel="stylesheet" th:href="@{/main.css}">
-		<link rel="manifest" href="@{/manifest.json}" />
+		<link rel="manifest" href="@{/img/manifest.json}" />
+		<script type="text/javascript" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/common.js}"></script>
 	</head>
 	<body>
 		<div class="App">
-			
+			<div th:replace="fragments/headfoot :: header"></div>
+			<main class="Content-layout">
+                <div class="Content">
+	                <div class="MyBugs">
+			            <div class="Header">
+			                <h1>My Bugs</h1>
+			            </div>
+			            <article th:each="obj :${myBugs}">
+			                <div class="ListItem">
+					            <a th:href="" href="/bugs/all" th:text="*{obj.issue}">isue</a>
+					            <div class="Under">
+					                Started by , created at 
+					            </div>
+					        </div>
+			            </article>
+			            <div class="Footer">
+			                <a><button >See more</button></a>
+			            </div>
+			        </div>
+	                <div class="Logs">
+			            <div class="Header-log">
+			                <h1>Log History</h1>
+			            </div>
+			            <article>
+			                <article th:each="obj : ${logs}">
+			                <div class="ListItem">
+					            <a href="/bugs/all" th:href="" th:text="*{obj.name}">isue</a>
+					            <div class="Under">
+					                Started by , created at 
+					            </div>
+					        </div>
+			            </article>
+			            </article>
+			            <div class="Footer-log">
+			                <button >See more</button>
+			            </div>
+			        </div>
+	                <div class="AllBugs">
+			            <div class="Header-all">
+			                <h1>All Bugs</h1>
+			            </div>
+			            <article th:each="obj : ${allBugs}">
+			                <div class="ListItem">
+					            <a href="/bugs/all" th:href="" th:text="*{obj.name}">isue</a>
+					            <div class="Under">
+					                Started by , created at 
+					            </div>
+					        </div>
+			            </article>
+			            <div class="Footer-all">
+			                <button >See more</button>
+			            </div>
+			        </div>
+	            </div>
+                <!-- <a th:href="@{/logout}" href=""><button class="Button Success">Logout</button></a> -->
+            </main>
 		</div>
 	</body>
 </html>

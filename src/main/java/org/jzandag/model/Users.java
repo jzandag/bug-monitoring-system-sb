@@ -1,9 +1,13 @@
 package org.jzandag.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +20,10 @@ public class Users {
 	private String name;
 	private String username;
 	private String password;
+	private String role;
+	
+	@OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
+	private List<Bug> bugs;
 	
 	public Long getId() {
 		return id;
@@ -40,5 +48,17 @@ public class Users {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public List<Bug> getBugs() {
+		return bugs;
+	}
+	public void setBugs(List<Bug> bugs) {
+		this.bugs = bugs;
 	}
 }

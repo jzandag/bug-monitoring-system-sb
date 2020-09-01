@@ -10,4 +10,6 @@ import org.springframework.stereotype.Service;
 public interface BusinessService {
 	
 	public List<Bug> getAll();
+	
+	public List<Bug> getBugsByUser(String username);
 }

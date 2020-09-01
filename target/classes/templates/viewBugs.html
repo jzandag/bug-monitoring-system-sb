@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+		<meta charset="utf-8" />
+	    <link rel="icon" th:href="@{/favicon.ico}" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	    <meta name="theme-color" content="#000000" />
+	    <meta name="description" content="Web site created using Spring Boot"/>
+		<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+		<!-- <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/> -->
+		<link rel="manifest" th:href="@{/img/manifest.json}" />
+		<title>Bug Monitoring System</title>
+		<script type="text/javascript" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/common.js}"></script>
+	</head>
+	<body>
+		<div class="App">
+			<div th:replace="fragments/headfoot :: header"></div>
+			<div class="View">
+				<h1>Bugs</h1>
+				<table class="table">
+					<thead class="thead-highlight">
+						<tr>
+							<th></th>
+							<th>Issue ID</th>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Project</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="obj,stat :${myBugs}">
+							<td th:text="*{stat.index + 1}">id</td>
+							<td th:text="*{obj.id}">issue</td>
+							<td th:text="*{obj.issue}">issue</td>
+							<td th:text="*{obj.description}">Description</td>
+							<td th:text="*{obj.project.projectName}">projectName</td>
+							<td>
+								ACTION
+							</td>
+						</tr>
+					</tbody>
+					<tfoot class="links">
+						<tr>
+							<td colspan="6">
+								<div class="links">
+									<a href="#">&laquo;</a> 
+									<a class="active" href="#">1</a> 
+									<a href="#">2</a> 
+									<a href="#">3</a> 
+									<a href="#">4</a> 
+									<a href="#">&raquo;</a>
+								</div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

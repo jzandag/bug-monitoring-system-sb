@@ -1,4 +1,4 @@
-package org.jzandag.controller;
+package org.jzandag.base;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Expression;
@@ -17,8 +18,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional
 public class BaseDao extends HibernateDaoSupport {
 	
 	@Autowired
@@ -26,8 +29,16 @@ public class BaseDao extends HibernateDaoSupport {
 		setSessionFactory(factory.unwrap(SessionFactory.class));
 	}
 	
+	public Session getSession() {
+		return getSessionFactory().openSession();
+	}
+	
 	public <L> L get(Class<L> entityClass, Serializable id) {
 		return (L) getHibernateTemplate().get(entityClass, id);
+	}
+	
+	public Object save(Object entityClass) {
+		return getHibernateTemplate().merge(entityClass);
 	}
 	
 	public void delete(Class<?> entityClass, Serializable id) {

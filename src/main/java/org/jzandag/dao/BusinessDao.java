@@ -1,5 +1,9 @@
 package org.jzandag.dao;
 
-public interface BusinessDao {
+import java.util.List;
 
+import org.jzandag.model.Bug;
+
+public interface BusinessDao {
+	public List<Bug> getBugsByUsername(String username);
 }

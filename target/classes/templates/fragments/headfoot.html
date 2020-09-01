@@ -1,0 +1,49 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+	    <link rel="icon" th:href="@{/favicon.ico}" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	    <meta name="theme-color" content="#000000" />
+	    <meta name="description" content="Web site created using spring boot" />
+		<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+		<title>Insert title here</title>
+		<link rel="stylesheet" th:href="@{/main.css}">
+	</head>
+	<body>
+		<div th:fragment="header">
+			<header class="MenuBar">
+				<div class="SidebarToggle">
+		            <div></div>
+		            <div></div>
+		            <div></div>
+		        </div>
+				<div class="Logo-menu Logo">
+	                <img th:src="@{/img/zz.png}" alt="Bug System Logo"></img>
+	            </div>
+	            <nav class="Logout DesktopOnly">
+	                <a th:href="@{/logout}" href="/logout"><button >Logout</button></a>
+	            </nav>
+			</header>
+			<div class="Backdrop Close"></div>
+			
+	        <div class="Sidebar Close" >
+	            <div class="Logo-side Logo">
+	                <img th:src="@{/img/zz.png}" alt="Bug System Logo"></img>
+	            </div>
+	           <nav>
+	                <div class="NavigationItems">
+	                	 <ul>
+		                	<li class="NavigationItem"><a th:href="@{/}" href="/">Dashboard</a></li>
+		                	<li class="NavigationItem"><a th:href="@{/orders}" href="/">My Bugs</a></li>
+		                	<li class="NavigationItem"><a th:href="@{/}" href="/">All Bugs</a></li>
+		                	<li class="NavigationItem"><a th:href="@{/}" href="/">Projects</a></li>
+		                	<li class="NavigationItem"><a th:href="@{/bugProfile}" href="/">Create a bug</a></li>
+		                </ul>
+		            </div>
+	            </nav> 
+	        </div>
+		</div>
+	</body>
+</html>

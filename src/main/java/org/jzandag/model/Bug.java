@@ -15,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "bugs")
@@ -22,12 +26,18 @@ public class Bug {
 	
 	private Long id;
 	private String issue;
+	private String description;
 	private Date createdDate;
-	@OneToMany(mappedBy = "bug")
+	
+	
 	private List<BugHistory> bugHistory;
-	@ManyToOne(fetch = FetchType.LAZY,targetEntity = Project.class)
-	@JoinColumn(name = "project_fk")
 	private Project project;
+	
+	
+	private Users user;
+	private Users assignedTo;
+	private Users reportedBy;
+	
 	
 	public Bug() {	
 	}
@@ -52,7 +62,17 @@ public class Bug {
 		this.issue = issue;
 	}
 	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Column(name = "created_date")
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -60,10 +80,54 @@ public class Bug {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+	
+	@OneToMany(mappedBy = "bug")
+	public List<BugHistory> getBugHistory() {
+		return bugHistory;
+	}
 
-	@PrePersist
-    protected void prePersist() {
-        if (this.createdDate == null) 
-        	this.createdDate = new Date();   
-    }
+	public void setBugHistory(List<BugHistory> bugHistory) {
+		this.bugHistory = bugHistory;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY,targetEntity = Project.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "project_fk")
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY,targetEntity = Users.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_fk")
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY,targetEntity = Users.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "assigned_to_fk")
+	public Users getAssignedTo() {
+		return assignedTo;
+	}
+
+	public void setAssignedTo(Users assignedTo) {
+		this.assignedTo = assignedTo;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY,targetEntity = Users.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "reported_by_fk")
+	public Users getReportedBy() {
+		return reportedBy;
+	}
+
+	public void setReportedBy(Users reportedBy) {
+		this.reportedBy = reportedBy;
+	}
+
 }

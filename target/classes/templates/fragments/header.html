@@ -1,0 +1,26 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<div th:fragment="header-css">
+        <!-- this is header-css -->
+        <meta charset="utf-8" />
+	    <link rel="icon" th:href="@{/favicon.ico}" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	    <meta name="theme-color" content="#000000" />
+	    <meta name="description" content="Web site created using Spring Boot"/>
+        
+        <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <script type="text/javascript" src="webjars/jquery/3.1.1/jquery.min.js" ></script>
+		<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+		<link rel="stylesheet" th:href="@{/main.css}">
+		<link rel="manifest" href="@{/manifest.json}" />
+    </div>
+</head>
+<body>
+	<div th:fragment="kdot">
+		kdot
+	</div>
+</body>
+</html>

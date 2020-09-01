@@ -1,0 +1,58 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+		<meta charset="utf-8" />
+	    <link rel="icon" th:href="@{/favicon.ico}" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	    <meta name="theme-color" content="#000000" />
+	    <meta name="description" content="Web site created using Spring Boot"/>
+		<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+		<!-- <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/> -->
+		<link rel="manifest" th:href="@{/img/manifest.json}" />
+		<title>Bug Monitoring System</title>
+		<script type="text/javascript" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+		<script type="text/javascript" th:src="@{/js/common.js}"></script>
+	</head>
+	<body>
+		<div class="App">
+			<div th:replace="fragments/headfoot :: header"></div>
+			<div class="Profile">
+				<h1>Save Bug</h1>
+				<!--  th:text="${bug.id} ? 'Save Bug' : 'Update Bug'" -->
+				<form class="FormProfile">
+					<div class="Input">
+						<label class="Label">Issue Name</label>
+		                <input class="InputElement" type="text" autocomplete="off" th:field="*{username}"/>
+					</div>
+					<div class="Input">
+						<label class="Label">Description</label>
+		                <textarea class="InputElement" autocomplete="off" th:field="*{description}"></textarea>
+					</div>
+					<div class="Select">
+						<label class="Label">Project</label>
+						<select class="form-control" th:field="*{project}" multiple="multiple" >
+						        <option th:each="obj : ${partsAttribute}"
+						                th:field="*{project}" 
+						                th:value="${obj.id}" 
+						                th:text="${obj.projectName">Project                   
+						        </option>
+						</select>
+					</div>
+					<div class="Select">
+						<label class="Label">Assign to</label>
+						<select class="form-control" th:field="*{project}" multiple="multiple" >
+						        <option th:each="obj : ${partsAttribute}"
+						                th:field="*{project}" 
+						                th:value="${obj.id}" 
+						                th:text="${obj.projectName">Project                   
+						        </option>
+						</select>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

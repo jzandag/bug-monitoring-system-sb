@@ -5,10 +5,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta charset="ISO-8859-1">
 		<title>Insert title here</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/main.css}">
 	</head>
 	<body>
 		
 		pokinaenae welcome to my system
+		Name: <span th:text="${user.role}"></span>
 		<table>
 			<tr>
 				<th>id</th>
@@ -19,5 +21,8 @@
 				<td th:text="*{obj.issue}">issue</td>
 			</tr>
 		</table>
+		hilo <span th:text="${#authentication.getPrincipal().getUser().getPassword()}"></span>
+		hilo <span th:text="${#authentication.getPrincipal().getUser().getRole()}"></span>
+		hilo <span th:text="${#authentication.getPrincipal().getUser().getUsername()}"></span>
 	</body>
 </html>
