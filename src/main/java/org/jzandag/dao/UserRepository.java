@@ -10,6 +10,6 @@ public interface UserRepository extends CrudRepository<Users, Long> {
 	@Query("SELECT u FROM Users u WHERE u.username = :username")
     public Users getUserByUsername(@Param("username") String username);
 	
-	@Query("SELECT u.bugs FROM Users u inner join u.bugs WHERE u.username = :username ")
+	@Query("SELECT u.assignedBugs FROM Users u inner join u.assignedBugs WHERE u.username = :username ")
 	public Users getBugsByUsername(@Param("username") String username);
 }

@@ -1,11 +1,14 @@
 package org.jzandag.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.jzandag.dao.BugRepository;
 import org.jzandag.dao.ProjectRepository;
@@ -50,13 +53,22 @@ public class BugsController {
 	}
 	
 	@GetMapping(value = "/edit/{id}")
-	public String saveBug(@PathVariable("id") Long id, ModelMap model) {
+	public String saveBug(HttpServletResponse response,  @PathVariable("id") Long id, ModelMap model) throws IOException {
 		
 		//get bug by userid (username);
+		Optional<Bug> opBug = this.bugDao.findById(id);
 		//if wala redirect to /403
-		model.addAttribute("errpr", "No bug with such id");
+		if(opBug.isPresent()) {
+			Bug bug = opBug.get();
+			model.addAttribute("bugCommand", bug);
+			model.addAttribute("projectList", getProjectList());
+			model.addAttribute("userList", getUserList());
+		}else {
+			model.addAttribute("error", "No bug with such id");
+			response.sendError(403);
+		}
 		
-		return "viewBugs";
+		return "bugsProfile";
 	}
 	
 	@GetMapping(value = "/save")
@@ -85,8 +97,13 @@ public class BugsController {
 	@ModelAttribute("projectList")
 	public Map<Long, String> getProjectList(){
 		Map<Long, String> map = new HashMap<>();
-		
 		StreamSupport.stream(this.projectDao.findAll().spliterator(),false).map(m -> map.put(m.getId(), m.getProjectName()));
+		
+		return map;
+	}
+	public Map<Long, String> getUserList(){
+		Map<Long, String> map = new HashMap<>();
+		StreamSupport.stream(this.userDao.findAll().spliterator(),false).map(m -> map.put(m.getId(), m.getUsername()));
 		
 		return map;
 	}

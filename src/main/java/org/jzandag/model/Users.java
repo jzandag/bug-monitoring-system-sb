@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "users")
 public class Users {
@@ -22,9 +25,11 @@ public class Users {
 	private String password;
 	private String role;
 	
-	@OneToMany(mappedBy = "assignedTo", fetch = FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "assignedTo")
 	private List<Bug> assignedBugs;
-	@OneToMany(mappedBy = "reportedBy", fetch = FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "reportedBy")
 	private List<Bug> reportedBugs;
 	
 	public Long getId() {

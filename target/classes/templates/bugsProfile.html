@@ -25,7 +25,7 @@
 				<form class="FormProfile">
 					<div class="Input">
 						<label class="Label">Issue Name</label>
-		                <input class="InputElement" type="text" autocomplete="off" th:field="*{username}"/>
+		                <input class="InputElement" type="text" autocomplete="off" th:field="*{issue}"/>
 					</div>
 					<div class="Input">
 						<label class="Label">Description</label>
@@ -34,7 +34,7 @@
 					<div class="Select">
 						<label class="Label">Project</label>
 						<select class="form-control" th:field="*{project}" multiple="multiple" >
-						        <option th:each="obj : ${partsAttribute}"
+						        <option th:each="obj : ${projectList}"
 						                th:field="*{project}" 
 						                th:value="${obj.id}" 
 						                th:text="${obj.projectName">Project                   
@@ -43,8 +43,8 @@
 					</div>
 					<div class="Select">
 						<label class="Label">Assign to</label>
-						<select class="form-control" th:field="*{assignTo}" multiple="multiple" >
-						        <option th:each="obj : ${userAttribute}"
+						<select class="form-control" th:field="*{assignedTo}" multiple="multiple" >
+						        <option th:each="obj : ${userList}"
 						                th:field="*{project}" 
 						                th:value="${obj.id}" 
 						                th:text="${obj.username">Assign to

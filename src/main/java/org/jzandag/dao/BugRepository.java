@@ -1,6 +1,7 @@
 package org.jzandag.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.jzandag.model.Bug;
 import org.springframework.dao.DataAccessException;
@@ -15,5 +16,5 @@ public interface BugRepository extends CrudRepository<Bug, Long>{
 	@Transactional(readOnly = true)   
     List<Bug> findAll() throws DataAccessException;
 	
-	Bug findOne(@Param("id") Long id) throws DataAccessException;
+	Optional<Bug> findById(@Param("id") Long id) throws DataAccessException;
 }

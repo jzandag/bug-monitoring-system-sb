@@ -37,7 +37,7 @@ public class DataLoader implements CommandLineRunner{
 		Users user2 = new Users();
 			user2.setName("dess");
 			user2.setPassword(passwordEncoder.encode("dess"));
-			user2.setUsername("zid");
+			user2.setUsername("dess");
 			user2.setRole("ROLE_ADMIN");
 		
 		bug.setDescription("first Issue");

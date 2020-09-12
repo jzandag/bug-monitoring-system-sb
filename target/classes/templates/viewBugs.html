@@ -39,8 +39,8 @@
 							<td th:text="*{obj.issue}">issue</td>
 							<td th:text="*{obj.description}">Description</td>
 							<td th:text="*{obj.project.projectName}">projectName</td>
-							<td>
-								ACTION
+							<td >
+								<a th:href="@{/user/bugs/edit/} + *{obj.id}">Edit</a>
 							</td>
 						</tr>
 					</tbody>
@@ -60,6 +60,7 @@
 					</tfoot>
 				</table>
 			</div>
+			<!-- end of View -->
 		</div>
 	</body>
 </html>

@@ -24,6 +24,7 @@ public class MyAuthSuccessHandler extends SavedRequestAwareAuthenticationSuccess
 		Users user = ((MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 		
 		HttpSession session = request.getSession(false);
+		System.out.println(user.getName());
 		if (session != null) {
 			session.setAttribute("userSessionObj", user);
             String redirectUrl = (String) session.getAttribute("url_prior_login");

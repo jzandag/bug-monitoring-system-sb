@@ -26,7 +26,7 @@ public class BaseDao extends HibernateDaoSupport {
 	
 	@Autowired
 	public BaseDao(EntityManagerFactory factory) {
-		setSessionFactory(factory.unwrap(SessionFactory.class));
+		super.setSessionFactory(factory.unwrap(SessionFactory.class));
 	}
 	
 	public Session getSession() {

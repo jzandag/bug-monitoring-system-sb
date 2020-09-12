@@ -28,7 +28,7 @@ public class BusinessDaoImpl extends BaseDao implements BusinessDao{
 		StringBuilder hql = new StringBuilder();
 		
 		hql.append("from Bug b ");
-		hql.append("inner join fetch b.user u ");
+		hql.append("inner join fetch b.assignedTo u ");
 		hql.append("where u.username = :username");
 		Query q = getSessionFactory().openSession().createQuery(hql.toString());
 		q.setParameter("username", username);
