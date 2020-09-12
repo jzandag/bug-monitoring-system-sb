@@ -99,6 +99,7 @@ public class BugsController {
 		Map<Long, String> map = new HashMap<>();
 		StreamSupport.stream(this.projectDao.findAll().spliterator(),false).map(m -> map.put(m.getId(), m.getProjectName()));
 		
+		System.out.println(map.values());
 		return map;
 	}
 	public Map<Long, String> getUserList(){

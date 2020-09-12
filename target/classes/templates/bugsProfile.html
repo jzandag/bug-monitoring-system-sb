@@ -22,7 +22,7 @@
 			<div class="Profile">
 				<h1>Save Bug</h1>
 				<!--  th:text="${bug.id} ? 'Save Bug' : 'Update Bug'" -->
-				<form class="FormProfile">
+				<form class="FormProfile" th:object="${bugCommand}">
 					<div class="Input">
 						<label class="Label">Issue Name</label>
 		                <input class="InputElement" type="text" autocomplete="off" th:field="*{issue}"/>
