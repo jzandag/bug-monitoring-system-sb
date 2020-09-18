@@ -22,7 +22,7 @@
 			<div class="Profile">
 				<h1>Save Bug</h1>
 				<!--  th:text="${bug.id} ? 'Save Bug' : 'Update Bug'" -->
-				<form class="FormProfile" th:object="${bugCommand}">
+				<form class="BugProfile" th:object="${bugCommand}">
 					<div class="Input">
 						<label class="Label">Issue Name</label>
 		                <input class="InputElement" type="text" autocomplete="off" th:field="*{issue}"/>
@@ -33,11 +33,11 @@
 					</div>
 					<div class="Select">
 						<label class="Label">Project</label>
-						<select class="form-control" th:field="*{project}" multiple="multiple" >
+						<select class="select-css" th:field="*{project}" multiple="multiple" >
 						        <option th:each="obj : ${projectList}"
 						                th:field="*{project}" 
 						                th:value="${obj.id}" 
-						                th:text="${obj.projectName">Project                   
+						                th:text="${obj.projectName}">Project                   
 						        </option>
 						</select>
 					</div>
@@ -47,7 +47,7 @@
 						        <option th:each="obj : ${userList}"
 						                th:field="*{project}" 
 						                th:value="${obj.id}" 
-						                th:text="${obj.username">Assign to
+						                th:text="${obj.username}">Assign to
 						        </option>
 						</select>
 					</div>

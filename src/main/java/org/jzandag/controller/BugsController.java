@@ -2,9 +2,11 @@ package org.jzandag.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.StreamSupport;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.jzandag.dao.BugRepository;
 import org.jzandag.dao.ProjectRepository;
 import org.jzandag.dao.UserRepository;
+import org.jzandag.dto.BugDTO;
 import org.jzandag.model.Bug;
+import org.jzandag.model.Project;
 import org.jzandag.model.Users;
 import org.jzandag.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +84,17 @@ public class BugsController {
 	}
 	
 	@PostMapping("")
-	public void saveBug(@RequestBody Bug bug) {
+	public void saveBug(@RequestBody BugDTO bugDto) {
+		Bug bug = new Bug();
+		if(bugDto.getId() != null) {
+			bug = this.bugDao.findById(bugDto.getId()).get();
+		}
+		bug.setId(bugDto.getId());
+		bug.setDescription(bugDto.getDescription());
+		bug.setProject(this.projectDao.findById(bugDto.getProject()).get());
+		bug.setAssignedTo(this.userDao.findById(bugDto.getAssignedTo()).get());
+		bug.setReportedBy(this.userDao.findById(bugDto.getAssignedTo()).get());
+		
 		bugDao.save(bug);
 	}
 	
@@ -95,17 +109,15 @@ public class BugsController {
 	}
 	
 	@ModelAttribute("projectList")
-	public Map<Long, String> getProjectList(){
-		Map<Long, String> map = new HashMap<>();
-		StreamSupport.stream(this.projectDao.findAll().spliterator(),false).map(m -> map.put(m.getId(), m.getProjectName()));
-		
-		System.out.println(map.values());
-		return map;
+	public List<Project> getProjectList(){		
+		List<Project> proj = (List<Project>) this.projectDao.findAll();
+		return proj;
 	}
-	public Map<Long, String> getUserList(){
-		Map<Long, String> map = new HashMap<>();
-		StreamSupport.stream(this.userDao.findAll().spliterator(),false).map(m -> map.put(m.getId(), m.getUsername()));
+	public List<Users> getUserList(){
 		
-		return map;
+		//Map<Long, String> map = new HashMap<>();
+		//StreamSupport.stream(this.userDao.findAll().spliterator(),false).map(m -> map.put(m.getId(), m.getUsername()));
+		List<Users> users = (List<Users>) this.userDao.findAll();
+		return users;
 	}
 }
