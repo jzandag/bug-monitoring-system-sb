@@ -47,13 +47,17 @@ public class BugsController {
 	@Autowired
 	ProjectRepository projectDao;
 	
+	private static final String VIEW_BUG = "viewBugs";
+	private static final String BUG_PROFILE = "bugsProfile";
+	
+	
 	@GetMapping(value = "")
 	public String getBugs(HttpServletRequest request, ModelMap model) {
 		Users user = (Users) request.getSession().getAttribute("userSessionObj");
 		
-		model.addAttribute("myBugs", bugService.getBugsByUser(user.getUsername()));
+		model.addAttribute("myBugs", userDao.getBugsByUsername(user.getUsername()));
 		
-		return "viewBugs";
+		return VIEW_BUG;
 	}
 	
 	@GetMapping(value = "/edit/{id}")
@@ -65,14 +69,13 @@ public class BugsController {
 		if(opBug.isPresent()) {
 			Bug bug = opBug.get();
 			model.addAttribute("bugCommand", bug);
-			model.addAttribute("projectList", getProjectList());
-			model.addAttribute("userList", getUserList());
+			initModel(model);
 		}else {
 			model.addAttribute("error", "No bug with such id");
 			response.sendError(403);
 		}
 		
-		return "bugsProfile";
+		return BUG_PROFILE;
 	}
 	
 	@GetMapping(value = "/save")
@@ -80,7 +83,7 @@ public class BugsController {
 		
 		bugDao.save(bug);
 		model.addAttribute("success", "Successful save!");
-		return "viewBugs";
+		return VIEW_BUG;
 	}
 	
 	@PostMapping("")
@@ -108,11 +111,16 @@ public class BugsController {
 		bugDao.deleteById(id);
 	}
 	
-	@ModelAttribute("projectList")
+	private void initModel(ModelMap model) {
+		model.addAttribute("projectList", getProjectList());
+		model.addAttribute("userList", getUserList());
+	}
+	
 	public List<Project> getProjectList(){		
 		List<Project> proj = (List<Project>) this.projectDao.findAll();
 		return proj;
 	}
+	
 	public List<Users> getUserList(){
 		
 		//Map<Long, String> map = new HashMap<>();

@@ -16,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class BusinessDaoImpl extends BaseDao implements BusinessDao{
-
+	
+	// Implemented Impl here hbecause of transactional management TODO
+	// Reference in creating native methods
+	
 	@Autowired
 	public BusinessDaoImpl(EntityManagerFactory factory) {
 		super(factory);

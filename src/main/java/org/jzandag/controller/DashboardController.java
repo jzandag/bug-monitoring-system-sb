@@ -38,6 +38,7 @@ public class DashboardController {
 		System.out.println(user.getUsername());
 		map.addAttribute("user", user);
 		if(user.getRole().equals("ROLE_USER")) {
+			//Bugs
 			response.sendRedirect("/user/dashboard");
 		}else if(user.getRole().equals("ROLE_ADMIN")) {
 			response.sendRedirect("/admin/dashboard");
