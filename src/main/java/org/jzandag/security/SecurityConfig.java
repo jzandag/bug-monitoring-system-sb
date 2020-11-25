@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	protected void configure(HttpSecurity http) throws Exception {
 
-        String[] pagesFree = {"/", "/home", "/template","/layout", "/secured/user/**"};
+        String[] pagesFree = {"/home", "/template","/layout", "/secured/user/**"};
         
         http.csrf().disable()
             .authorizeRequests()

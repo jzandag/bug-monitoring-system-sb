@@ -35,6 +35,20 @@ public class DashboardController {
 		map.addAttribute("myBugs", bugRepo.findAll());
 		Users user = (Users) request.getSession().getAttribute("userSessionObj");
 		
+		map.addAttribute("user", user);
+		if(user.getRole().equals("ROLE_USER")) {
+			//Bugs
+			response.sendRedirect("/user/dashboard");
+		}else if(user.getRole().equals("ROLE_ADMIN")) {
+			response.sendRedirect("/admin/dashboard");
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/user/dashboard")
+	public void dashboardUser(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws IOException {
+		map.addAttribute("myBugs", bugRepo.findAll());
+		Users user = (Users) request.getSession().getAttribute("userSessionObj");
+		
 		System.out.println(user.getUsername());
 		map.addAttribute("user", user);
 		if(user.getRole().equals("ROLE_USER")) {
@@ -44,5 +58,6 @@ public class DashboardController {
 			response.sendRedirect("/admin/dashboard");
 		}
 	}
+	
 	
 }
