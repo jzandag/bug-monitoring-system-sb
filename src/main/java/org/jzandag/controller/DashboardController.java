@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jzandag.dao.BugRepository;
+import org.jzandag.dao.UserRepository;
 import org.jzandag.model.Users;
 import org.jzandag.security.MyUserDetails;
 import org.jzandag.service.BusinessService;
@@ -24,7 +25,7 @@ public class DashboardController {
 	@Autowired
 	BusinessService businessService;
 	@Autowired
-	BugRepository bugRepo;
+	UserRepository userRepo;
 	
 	private static final String DASHBOARD = "dashboard";
 	
@@ -51,14 +52,15 @@ public class DashboardController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/user/dashboard")
 	public String dashboardUser(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws IOException {
-		map.addAttribute("myBugs", bugRepo.findAll());
 		Users user = BMUtils.getCurrentUserSession(request);
 		
 		map.addAttribute("user", user);
 		// I added if and else if stmt, in case we needed to add custom model attributes to each dashboard, mkay?
-		if(user.getRole().equals("ROLE_USER"))
+		if(user.getRole().equals("ROLE_USER")) {
+			map.addAttribute("myBugs", this.userRepo.getBugsByUsername(user.getUsername()));
 			return DASHBOARD;
-		else if(user.getRole().equals("ROLE_ADMIN")){
+		}else if(user.getRole().equals("ROLE_ADMIN")){
+			map.addAttribute("myBugs", this.userRepo.getBugsByUsername(user.getUsername()));
 			return DASHBOARD;
 		}
 		return  null;

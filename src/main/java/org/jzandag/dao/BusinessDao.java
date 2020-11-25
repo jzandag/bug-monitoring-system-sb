@@ -10,5 +10,7 @@ import org.jzandag.model.Bug;
 */
 
 public interface BusinessDao {
+	
+	//Refer to userRepo to get bugs by user, hehe
 	public List<Bug> getBugsByUsername(String username);
 }
