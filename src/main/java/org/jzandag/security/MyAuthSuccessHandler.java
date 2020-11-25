@@ -19,12 +19,11 @@ import org.springframework.stereotype.Component;
 public class MyAuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
-		Users user = ((MyUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+		Users user = ((MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 		
 		HttpSession session = request.getSession(false);
-		System.out.println(user.getName());
+
 		if (session != null) {
 			session.setAttribute("userSessionObj", user);
             String redirectUrl = (String) session.getAttribute("url_prior_login");
@@ -34,6 +33,8 @@ public class MyAuthSuccessHandler extends SavedRequestAwareAuthenticationSuccess
                 // then we redirect
                 getRedirectStrategy().sendRedirect(request, response, redirectUrl);
             } else {
+            	
+            	//If no redirect url prior login we just pass redirection to success handler
                 super.onAuthenticationSuccess(request, response, authentication);
             }
         }else {

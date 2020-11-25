@@ -33,7 +33,7 @@
 					</div>
 					<div class="Select">
 						<label class="Label">Project</label>
-						<select class="select-css" th:field="*{project}" multiple="multiple" >
+						<select class="select-css" th:field="*{project}" >
 						        <option th:each="obj : ${projectList}"
 						                th:field="*{project}" 
 						                th:value="${obj.id}" 
@@ -43,7 +43,7 @@
 					</div>
 					<div class="Select">
 						<label class="Label">Assign to</label>
-						<select class="form-control" th:field="*{assignedTo}" multiple="multiple" >
+						<select class="form-control" th:field="*{assignedTo}">
 						        <option th:each="obj : ${userList}"
 						                th:field="*{project}" 
 						                th:value="${obj.id}" 
@@ -53,7 +53,7 @@
 					</div>
 					<div class="Select">
 						<label class="Label">Reported by</label>
-						<select class="form-control" th:field="*{reportedBy}" multiple="multiple" >
+						<select class="form-control" th:field="*{reportedBy}" >
 						        <option th:each="obj : ${userAttribute}"
 						                th:field="*{project}" 
 						                th:value="${obj.id}" 

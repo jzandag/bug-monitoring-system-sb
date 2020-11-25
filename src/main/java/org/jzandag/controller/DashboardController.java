@@ -9,6 +9,7 @@ import org.jzandag.dao.BugRepository;
 import org.jzandag.model.Users;
 import org.jzandag.security.MyUserDetails;
 import org.jzandag.service.BusinessService;
+import org.jzandag.utils.BMUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ public class DashboardController {
 	@Autowired
 	BugRepository bugRepo;
 	
+	private static final String DASHBOARD = "dashboard";
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/login")
 	public String login(@ModelAttribute("userCommand") Users user, ModelMap map) {
 		return "login";
@@ -32,31 +35,33 @@ public class DashboardController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/")
 	public void dashboard(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws IOException {
-		map.addAttribute("myBugs", bugRepo.findAll());
-		Users user = (Users) request.getSession().getAttribute("userSessionObj");
+		Users user = BMUtils.getCurrentUserSession(request);
 		
-		map.addAttribute("user", user);
-		if(user.getRole().equals("ROLE_USER")) {
-			//Bugs
-			response.sendRedirect("/user/dashboard");
-		}else if(user.getRole().equals("ROLE_ADMIN")) {
-			response.sendRedirect("/admin/dashboard");
+		if(BMUtils.isNull(user)) {
+			response.sendRedirect("/login");
+		}else {			
+			if(user.getRole().equals("ROLE_USER")) {
+				//Bugs
+				response.sendRedirect("/user/dashboard");
+			}else if(user.getRole().equals("ROLE_ADMIN")) {
+				response.sendRedirect("/admin/dashboard");
+			}
 		}
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/user/dashboard")
-	public void dashboardUser(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws IOException {
+	public String dashboardUser(HttpServletRequest request, HttpServletResponse response, ModelMap map) throws IOException {
 		map.addAttribute("myBugs", bugRepo.findAll());
-		Users user = (Users) request.getSession().getAttribute("userSessionObj");
+		Users user = BMUtils.getCurrentUserSession(request);
 		
-		System.out.println(user.getUsername());
 		map.addAttribute("user", user);
-		if(user.getRole().equals("ROLE_USER")) {
-			//Bugs
-			response.sendRedirect("/user/dashboard");
-		}else if(user.getRole().equals("ROLE_ADMIN")) {
-			response.sendRedirect("/admin/dashboard");
+		// I added if and else if stmt, in case we needed to add custom model attributes to each dashboard, mkay?
+		if(user.getRole().equals("ROLE_USER"))
+			return DASHBOARD;
+		else if(user.getRole().equals("ROLE_ADMIN")){
+			return DASHBOARD;
 		}
+		return  null;
 	}
 	
 	
